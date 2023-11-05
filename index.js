@@ -18,4 +18,4 @@ server.use(jsonServer.bodyParser)
 server.use(middlewares)
 server.use(router)
 
-server.listen();
+server.listen(port);
