@@ -1,21 +1,16 @@
 const jsonServer = require('json-server')
+const express = require('express')
+const app = express()
 const cors = require('cors')
 const path = require('path')
 const port = process.env.PORT || 8000
 
-const server = jsonServer.create()
+// const server = jsonServer.create()
 const router = jsonServer.router(path.join(__dirname, 'db.json'))
-const middlewares = jsonServer.defaults()
+// const middlewares = jsonServer.defaults()
 
-server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-    res.header('Access-Control-Allow-Headers', '*')
-    next()
-})
+app.use(cors())
+app.use(jsonServer.bodyParser)
+app.use(router)
 
-server.use(cors())
-server.use(jsonServer.bodyParser)
-server.use(middlewares)
-server.use(router)
-
-server.listen(port);
+app.listen(port);
